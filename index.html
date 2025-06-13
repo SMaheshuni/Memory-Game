@@ -2,25 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <!-- Add the confetti library script here -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Memory Game</h1>
-    <div class="score-board">
-        <div class="moves">Moves : <span> 0 </span></div>
-        <div class="misses">Misses : <span> 0 </span></div>
-        <div class="score">Score  : <span> 0 </span></div>
-    </div>
-    <div class="container">
+    <div class="game-header">
+        <div class="header-item">👤 <span id="playerName"></span></div>
+        <div class="header-item">⏱️ Time: <span id="timer">60</span>s</div>
+        <div class="header-item">🔁 Moves: <span class="moves"><span>0</span></span></div>
+        <div class="header-item">❌ Misses: <span class="misses"><span>0</span></span></div>
+        <div class="header-item">✅ Score: <span class="score"><span>0</span></span></div>
+        <div class="header-item">
+          <button class="pause-button" aria-label="Toggle Pause">⏸ Pause</button>
+        </div>
+        <button id="viewLeaderboardBtn">View Leaderboard</button>
     </div>
 
-    <div class="congrats-card">
-        <h2>CONGRATULATIONS</h4>
-        <h4>NITISH</h4>
-        <p>You won the game</p>
+    <!-- Start Screen -->
+    <div class="start-screen">
+        <div class="start-card">
+          <h2>Welcome to the Memory Game</h2>
+          <p>Enter your name to begin:</p>
+          <input type="text" id="nameInput" placeholder="Your Name" />
+          <div class="difficulty-select">
+            <label for="difficulty">Select Difficulty:</label>
+            <select id="difficulty">
+              <option value="easy">Easy (6 Pairs)</option>
+              <option value="medium" selected>Medium (10 Pairs)</option>
+              <option value="hard">Hard (13 Pairs)</option>
+            </select>
+          </div>
+          <button id="startBtn">Start Game</button>
+        </div>
     </div>
+
+    <!-- Game Container -->
+    <div class="container"></div>
+
+    <!-- Win Screen -->
+    <div class="congrats-card">
+        <h2 id="congratsPlayerName">You Won!</h2> <!-- Changed ID to be unique -->
+        <p id="finalTime">Time Taken: --</p>
+        <p id="finalMoves">Moves: --</p>
+        <p id="finalMisses">Misses: --</p>
+        <button class="restart-button">Play Again</button>
+    </div>
+
+    <!-- Lose Screen -->
+    <div class="lose-card">
+        <h2 id="losePlayerName"></h2>
+        <p id="loseMessage">Time's up! You lost. 😞</p>
+        <p id="loseFinalTime"></p>
+        <p id="loseFinalMoves"></p>
+        <p id="loseFinalMisses"></p>
+        <button class="restart-button">Restart</button>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard-card hidden" id="leaderboardCard">
+        <div class="leaderboard-header">🏆 Top 5 Players</div>
+        <table id="leaderboardList">
+            <thead>
+                <tr>
+                    <td>Sno</td>
+                    <td>Name</td>
+                    <td>Level</td>
+                    <td>Time</td>
+                    <td>Moves</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button class="close-leaderboard">✖ Close</button>
+    </div>
+
+    <!-- Pause Overlay -->
+    <div class="pause-overlay">
+        <p>Game Paused</p>
+        <p>Press 'Resume' to continue</p>
+    </div>
+
 </body>
 </html>
